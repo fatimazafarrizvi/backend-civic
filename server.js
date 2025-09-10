@@ -4,6 +4,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const userRoutes = require('./Routes/user_routes')
 const adminRoutes = require('./Routes/admin_routes')
+const issueRoutes = require('./Routes/issue_routes')
 
 //import url
 let url = require('./url')
@@ -23,6 +24,7 @@ mongoose.connect(url,{dbName : "sih"}).then(()=>{
 
 app.use('/user', userRoutes)
 app.use('/admin', adminRoutes)
+app.use('/issue', issueRoutes)
 
 //create port
 const port = process.env.PORT || 8080;
