@@ -33,7 +33,33 @@ const insert_issue = async (req, res) => {
     }
 };
 
+
+const update_issue = async (req, res) => {
+    const issueId = req.params.id.trim(); ;
+
+    const updatedData = {
+        status: req.body.status,
+        description: req.body.description
+    };
+
+    try {
+        const updateResult = await Issue.updateOne(
+            { _id: issueId },
+            { $set: updatedData }
+        );
+
+        if (updateResult.modifiedCount != 0) {
+            res.send({ update: 'success' });
+        } else {
+            res.send({ update: 'Record Not Found or No Changes Made' });
+        }
+    } catch (error) {
+        res.status(400).send(error);
+    }
+};
+
 module.exports = {
     issue_all,
-    insert_issue
+    insert_issue,
+    update_issue
 };

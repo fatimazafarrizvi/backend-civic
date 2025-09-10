@@ -22,4 +22,7 @@ router.get("/issue_all", issue.issue_all);
 // Fix the POST route to call insert_issue and apply multer middleware
 router.post("/insert_issue", upload.single('image'), issue.insert_issue);
 
+router.put("/update_issue/:id", upload.single('image'), issue.update_issue);
+ // put
+
 module.exports = router;

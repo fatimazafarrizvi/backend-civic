@@ -25,6 +25,9 @@ mongoose.connect(url,{dbName : "sih"}).then(()=>{
 app.use('/user', userRoutes)
 app.use('/admin', adminRoutes)
 app.use('/issue', issueRoutes)
+app.use(express.json());       // To parse application/json
+app.use(express.urlencoded({ extended: true }));  // To parse form data
+
 
 //create port
 const port = process.env.PORT || 8080;
@@ -33,3 +36,4 @@ app.listen(port, () => {
     console.log('Server listening on port:', port);
 });
 
+// to run this paste url http://localhost:8080/issue/issue_all
