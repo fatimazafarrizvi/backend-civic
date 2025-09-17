@@ -37,7 +37,7 @@ const insert_admin = async (req, res) => {
     }
 };
 
-
+//
 const adminfind = async (req, res) => {
     try {
         const { email, password } = req.body;
