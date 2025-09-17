@@ -6,11 +6,12 @@ const issue_all = async (req, res) => {
         const issue = await Issue.find();
         res.json(issue);
     } catch (error) {
-        console.log("Fetch error");
-        res.json({
-            message: error
-        });
-    }
+    console.log("Fetch error", error);
+    res.status(500).json({
+        message: error.toString()
+    });
+}
+
 };
 
 // Insert a new issue
