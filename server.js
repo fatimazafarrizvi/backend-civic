@@ -1,39 +1,46 @@
-const express = require('express')
-const bodyparser = require('body-parser')
-const cors = require('cors')
-const mongoose = require('mongoose')
-const userRoutes = require('./Routes/user_routes')
-const adminRoutes = require('./Routes/admin_routes')
-const issueRoutes = require('./Routes/issue_routes')
+const express = require('express');
+const bodyparser = require('body-parser');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const userRoutes = require('./Routes/user_routes');
+const adminRoutes = require('./Routes/admin_routes');
+const issueRoutes = require('./Routes/issue_routes');
 
-//import url
-let url = require('./url')
-//create rest object
-let app = express()
-//set JSON as MIME type
-app.use(bodyparser.json())
-//client is not sending form data -> encoding JSON
-app.use(bodyparser.urlencoded({ extended: false }))
-//enable CORS -> Cross Origine Resource Sharing -> communication among various ports
-app.use(cors())
-mongoose.connect(url,{dbName : "sih"}).then(()=>{
-    console.log("Connection successful")
-},(errRes)=>{
-    console.log("Connection Failed - ",errRes)
-})
+// import url
+let url = require('./url');
 
-app.use('/user', userRoutes)
-app.use('/admin', adminRoutes)
-app.use('/issue', issueRoutes)
+// create rest object
+let app = express();
+
+// set JSON as MIME type
+app.use(bodyparser.json());
+// client is not sending form data -> encoding JSON
+app.use(bodyparser.urlencoded({ extended: false }));
+// enable CORS -> Cross Origine Resource Sharing -> communication among various ports
+app.use(cors());
+
+mongoose.connect(url, { dbName: "sih" }).then(() => {
+    console.log("Connection successful");
+}, (errRes) => {
+    console.log("Connection Failed - ", errRes);
+});
+
+app.use('/user', userRoutes);
+app.use('/admin', adminRoutes);
+app.use('/issue', issueRoutes);
 app.use(express.json());       // To parse application/json
 app.use(express.urlencoded({ extended: true }));  // To parse form data
 
+// ✅ Add a root route handler
+app.get('/', (req, res) => {
+    res.send('Server is up and running!');
+});
 
-//create port
+// create port
 const port = process.env.PORT || 8080;
 // assign port no
 app.listen(port, () => {
-    console.log('Server listening on port:', port);
+    console.log('Server listening on port:', port);
 });
 
 // to run this paste url http://localhost:8080/issue/issue_all :D
