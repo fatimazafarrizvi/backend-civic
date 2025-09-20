@@ -1,9 +1,12 @@
 {
   "dependencies": {
+    "cloudinary": "^2.7.0",
     "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "git": "^0.1.5",
     "mongoose": "^8.18.1",
-    "multer": "^2.0.2"
+    "multer": "^2.0.2",
+    "nanoid": "^3.3.11"
   }
 }

@@ -3,27 +3,25 @@ const router = express.Router();
 const issue = require("../api/issueapi");
 const multer = require('multer');
 
-// Multer storage configuration
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/');
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, uniqueSuffix + '-' + file.originalname);
-    }
-});
-
+// Use memory storage for Cloudinary uploads
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // Keep the GET route unchanged
 router.get("/issue_all", issue.issue_all);
 
-// Fix the POST route to call insert_issue and apply multer middleware
-router.post("/insert_issue", upload.single('image'), issue.insert_issue);
+// Update POST route to accept multiple files
+router.post("/insert_issue", upload.fields([
+    { name: 'image', maxCount: 1 },
+    { name: 'audio', maxCount: 1 },
+    { name: 'video', maxCount: 1 }
+]), issue.insert_issue);
 
-router.put("/update_issue/:id", upload.single('image'), issue.update_issue);
- // put
+// Update PUT route (optional: if you want to update files too)
+router.put("/update_issue/:id", upload.fields([
+    { name: 'image', maxCount: 1 },
+    { name: 'audio', maxCount: 1 },
+    { name: 'video', maxCount: 1 }
+]), issue.update_issue);
 
 module.exports = router;
-//
