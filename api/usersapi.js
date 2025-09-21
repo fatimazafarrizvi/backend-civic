@@ -4,6 +4,10 @@ const insert_user = async (req, res) => {
     try {
         const { fullname, phoneNumber, email, password, confirmPassword} = req.body;
 
+                if (password !== confirmPassword) {
+    return res.status(400).json({ message: "Password and Confirm Password do not match" });
+}
+
         const existingUser = await User.findOne({
             $or: [{ email }, { password }]
         });
