@@ -1,4 +1,4 @@
-# 🏙️ Civic Backend
+# 🏙️ Civic Issue Reporting Backend
 
 The **Civic Backend** is a Node.js + Express.js server that powers a citizen engagement and issue-reporting platform.  
 It provides secure APIs for user and admin authentication, issue reporting, contact forms, and settings management.
